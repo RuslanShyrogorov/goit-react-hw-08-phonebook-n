@@ -5,6 +5,7 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { shadows } from '@mui/system';
 
 export default function ContactItem() {
   const MyTooltip = styled(({ className, ...props }) => (
@@ -20,7 +21,14 @@ export default function ContactItem() {
 
   return (
     <Grid>
-      <Item>
+      <Item
+        sx={{
+          '&:hover': {
+            boxShadow: 4,
+            cursor: 'pointer',
+          },
+        }}
+      >
         <Card variant="outlined" sx={{ minWidth: '320px' }}>
           <CardContent sx={{ position: 'relative' }}>
             <MyTooltip title="Delete">
