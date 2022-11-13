@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { styled, alpha, Button } from '@mui/material';
 
@@ -38,9 +38,9 @@ export default function ContactsFilter() {
   // const filter = useSelector(getFilter);
   // const dispatch = useDispatch();
 
-  const handleChange = e => {
-    // dispatch(setFilter(e.target.value));
-  };
+  // const handleChange = e => {
+  //   dispatch(setFilter(e.target.value));
+  // };
 
   return (
     <>
