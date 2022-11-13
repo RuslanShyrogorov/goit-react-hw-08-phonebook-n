@@ -7,8 +7,8 @@ export const App = () => {
   return (
     <div>
       <Header />
-      {/* <ContactsList /> */}
-      {/* <RegisterForm /> */}
+      <ContactsList />
+      <RegisterForm />
       <LoginForm />
     </div>
   );

@@ -5,7 +5,6 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { shadows } from '@mui/system';
 
 export default function ContactItem() {
   const MyTooltip = styled(({ className, ...props }) => (
