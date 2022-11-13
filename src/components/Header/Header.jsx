@@ -11,6 +11,9 @@ import {
   Menu,
 } from '@mui/material';
 
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+
 import MoreIcon from '@mui/icons-material/MoreVert';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
@@ -25,6 +28,17 @@ export default function Header() {
 
   // const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const MyTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.common.white,
+      color: 'rgba(0, 0, 0, 0.87)',
+      boxShadow: theme.shadows[1],
+      fontSize: 14,
+    },
+  }));
 
   // const handleProfileMenuOpen = event => {
   //   setAnchorEl(event.currentTarget);
@@ -127,7 +141,8 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      {/* <AppBar position="static"> */}
+      <AppBar position="fixed">
         <Toolbar>
           <Typography
             sx={{ display: { xs: 'none', sm: 'block' } }}
@@ -143,41 +158,49 @@ export default function Header() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <PersonAddIcon />
-            </IconButton>
+            <MyTooltip title="Add Contact">
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <PersonAddIcon />
+              </IconButton>
+            </MyTooltip>
 
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <LoginIcon />
-            </IconButton>
+            <MyTooltip title="LogIn">
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <LoginIcon />
+              </IconButton>
+            </MyTooltip>
 
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <LogoutIcon />
-            </IconButton>
+            <MyTooltip title="LogOut">
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <LogoutIcon />
+              </IconButton>
+            </MyTooltip>
 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              // aria-controls={menuId}
-              // aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AppRegistrationIcon />
-            </IconButton>
+            <MyTooltip title="Registration">
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                // aria-controls={menuId}
+                // aria-haspopup="true"
+                // onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AppRegistrationIcon />
+              </IconButton>
+            </MyTooltip>
           </Box>
 
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
