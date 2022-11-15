@@ -188,7 +188,7 @@ export default function Header() {
               </IconButton>
             </MyTooltip>
 
-            <MyTooltip title="Registration">
+            <MyTooltip title="Sign Up">
               <IconButton
                 size="large"
                 edge="end"

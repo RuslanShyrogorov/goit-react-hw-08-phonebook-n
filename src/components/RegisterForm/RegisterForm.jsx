@@ -35,7 +35,7 @@ export default function RegisterForm() {
         required
         variant="outlined"
         placeholder="Name"
-        // defaultValue="Email"
+        // !!!!!
         id="validation-outlined-input"
       />
       <ValidationTextField
@@ -43,7 +43,7 @@ export default function RegisterForm() {
         required
         variant="outlined"
         placeholder="Email"
-        // defaultValue="Email"
+        // !!!!!
         id="validation-outlined-input"
       />
       <ValidationTextField
@@ -51,7 +51,7 @@ export default function RegisterForm() {
         required
         variant="outlined"
         placeholder="Password"
-        // defaultValue="Email"
+        // !!!!!
         id="validation-outlined-input"
       />
       <Button
