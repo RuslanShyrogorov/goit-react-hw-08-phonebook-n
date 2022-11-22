@@ -1,5 +1,5 @@
-// import * as React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   AppBar,
@@ -11,9 +11,6 @@ import {
   Menu,
 } from '@mui/material';
 
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
-
 import MoreIcon from '@mui/icons-material/MoreVert';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
@@ -22,62 +19,22 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 import ContactsFilter from 'components/Filter/Filter';
 
+import { AuthNavIcon } from 'components/AuthNav/AuthNavIcon';
+import { UserMenuIcon } from 'components/UserMenu/UserMenuIcon/UserMenuIcon';
+import Navigation from 'components/Navigation/Navigation';
+
 export default function Header() {
-  // const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-  // const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const MyTooltip = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
-    [`& .${tooltipClasses.tooltip}`]: {
-      backgroundColor: theme.palette.common.white,
-      color: 'rgba(0, 0, 0, 0.87)',
-      boxShadow: theme.shadows[1],
-      fontSize: 14,
-    },
-  }));
-
-  // const handleProfileMenuOpen = event => {
-  //   setAnchorEl(event.currentTarget);
-  // };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  // const handleMenuClose = () => {
-  //   setAnchorEl(null);
-  //   handleMobileMenuClose();
-  // };
-
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
-  // const menuId = 'primary-search-account-menu';
-  // const renderMenu = (
-  //   <Menu
-  //     anchorEl={anchorEl}
-  //     anchorOrigin={{
-  //       vertical: 'top',
-  //       horizontal: 'right',
-  //     }}
-  //     id={menuId}
-  //     keepMounted
-  //     transformOrigin={{
-  //       vertical: 'top',
-  //       horizontal: 'right',
-  //     }}
-  //     open={isMenuOpen}
-  //     onClose={handleMenuClose}
-  //   >
-  //     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-  //     <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-  //   </Menu>
-  // );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -97,28 +54,20 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <IconButton size="large" aria-label="add contact" color="inherit">
           <PersonAddIcon />
         </IconButton>
         <p>Add contact</p>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
+        <IconButton size="large" aria-label="login" color="inherit">
           <LoginIcon />
         </IconButton>
         <p>LogIn</p>
       </MenuItem>
 
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
+        <IconButton size="large" aria-label="logout" color="inherit">
           <LogoutIcon />
         </IconButton>
         <p>LogOut</p>
@@ -127,8 +76,7 @@ export default function Header() {
       <MenuItem>
         <IconButton
           size="large"
-          aria-label="account of current user"
-          // aria-controls="primary-search-account-menu"
+          aria-label="signup"
           aria-haspopup="true"
           color="inherit"
         >
@@ -141,66 +89,31 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <AppBar position="static"> */}
       <AppBar position="fixed">
         <Toolbar>
           <Typography
             sx={{ display: { xs: 'none', sm: 'block' } }}
             variant="h6"
             noWrap
-            component="div"
+            fontWeight={700}
           >
             PhoneBook
           </Typography>
 
           <ContactsFilter />
 
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Navigation />
+          </Box>
+
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <MyTooltip title="Add Contact">
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <PersonAddIcon />
-              </IconButton>
-            </MyTooltip>
+            <AuthNavIcon />
+          </Box>
 
-            <MyTooltip title="LogIn">
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <LoginIcon />
-              </IconButton>
-            </MyTooltip>
-
-            <MyTooltip title="LogOut">
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <LogoutIcon />
-              </IconButton>
-            </MyTooltip>
-
-            <MyTooltip title="Sign Up">
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                // aria-controls={menuId}
-                // aria-haspopup="true"
-                // onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AppRegistrationIcon />
-              </IconButton>
-            </MyTooltip>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <UserMenuIcon />
           </Box>
 
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -13,7 +13,7 @@ const initialAuthState = {
 
 const authSlice = createSlice({
   name: 'auth',
-  initiaState: initialAuthState,
+  initialState: initialAuthState,
   extraReducers: {
     [signup.pending]: store => {
       store.loading = true;

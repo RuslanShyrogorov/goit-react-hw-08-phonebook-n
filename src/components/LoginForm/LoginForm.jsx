@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Button, Box, TextField } from '@mui/material';
+import { Button, Box, TextField, Typography } from '@mui/material';
 
 const ValidationTextField = styled(TextField)({
   '& input:valid + fieldset': {
@@ -16,7 +16,7 @@ const ValidationTextField = styled(TextField)({
   },
 });
 
-export default function LoginForm() {
+export function LoginForm() {
   return (
     <Box
       component="form"
@@ -30,6 +30,14 @@ export default function LoginForm() {
         pt: 12,
       }}
     >
+      <Typography
+        variant="h3"
+        component="h4"
+        m={'auto'}
+        color={'text.secondary'}
+      >
+        LOGIN
+      </Typography>
       <ValidationTextField
         label="Email"
         required
@@ -50,7 +58,7 @@ export default function LoginForm() {
         variant="contained"
         sx={{ maxWidth: '8rem', ml: 'auto', mr: 'auto' }}
       >
-        Contained
+        LogIn
       </Button>
     </Box>
   );
