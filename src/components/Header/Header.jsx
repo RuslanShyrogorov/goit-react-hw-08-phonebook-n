@@ -17,13 +17,15 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
-import ContactsFilter from 'components/Filter/Filter';
-
 import { AuthNavIcon } from 'components/AuthNav/AuthNavIcon';
 import { UserMenuIcon } from 'components/UserMenu/UserMenuIcon/UserMenuIcon';
 import Navigation from 'components/Navigation/Navigation';
 
+import { useAuth } from 'hooks';
+
 export default function Header() {
+  const { isLoggedIn } = useAuth();
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -100,21 +102,28 @@ export default function Header() {
             PhoneBook
           </Typography>
 
-          <ContactsFilter />
-
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Navigation />
-          </Box>
+          </Box> */}
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <AuthNavIcon />
-          </Box>
+          {isLoggedIn ? (
+            <>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Navigation />
+              </Box>
 
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <UserMenuIcon />
-          </Box>
+              <Box sx={{ flexGrow: 1 }} />
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <UserMenuIcon />
+              </Box>
+            </>
+          ) : (
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <AuthNavIcon />
+            </Box>
+          )}
 
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

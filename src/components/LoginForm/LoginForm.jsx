@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { logIn } from 'redux/auth/authOperations';
+
 import { styled } from '@mui/material/styles';
 import { Button, Box, TextField, Typography } from '@mui/material';
 
@@ -17,10 +20,24 @@ const ValidationTextField = styled(TextField)({
 });
 
 export function LoginForm() {
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    dispatch(
+      logIn({
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    );
+    form.reset();
+  };
+
   return (
     <Box
       component="form"
-      noValidate
+      // noValidate
       sx={{
         maxWidth: 'sm',
         display: 'grid',
@@ -29,6 +46,7 @@ export function LoginForm() {
         m: 'auto',
         pt: 12,
       }}
+      onSubmit={handleSubmit}
     >
       <Typography
         variant="h3"
@@ -40,23 +58,24 @@ export function LoginForm() {
       </Typography>
       <ValidationTextField
         label="Email"
+        name="email"
         required
         variant="outlined"
         placeholder="Email"
-        // defaultValue="Email"
-        id="validation-outlined-input"
+        id="validation-outlined-email"
       />
       <ValidationTextField
         label="Password"
+        name="password"
         required
         variant="outlined"
         placeholder="Password"
-        // defaultValue="Email"
-        id="validation-outlined-input"
+        id="validation-outlined-password"
       />
       <Button
         variant="contained"
         sx={{ maxWidth: '8rem', ml: 'auto', mr: 'auto' }}
+        type="submit"
       >
         LogIn
       </Button>

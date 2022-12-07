@@ -1,11 +1,17 @@
+import { useDispatch } from 'react-redux';
+
 import { Box, IconButton } from '@mui/material';
-
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 
+import { useAuth } from 'hooks';
+import { logOut } from 'redux/auth/authOperations';
+
 export function UserMenuIcon() {
+  const dispatch = useDispatch();
+  const { user } = useAuth();
+
   const MyTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
@@ -19,9 +25,14 @@ export function UserMenuIcon() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <p>Welcome, Ruslan</p>
+      <p>Welcome, {user.name}</p>
       <MyTooltip title="LogOut">
-        <IconButton size="large" aria-label="logout" color="inherit">
+        <IconButton
+          size="large"
+          aria-label="logout"
+          color="inherit"
+          onClick={() => dispatch(logOut())}
+        >
           <LogoutIcon />
         </IconButton>
       </MyTooltip>

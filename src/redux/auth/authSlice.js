@@ -1,79 +1,68 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-import { signup, login, logout, current } from './authOperations';
+import { register, logIn, logOut, refreshUser } from './authOperations';
 
 const initialAuthState = {
-  user: {},
-  token: '',
-  isLogin: false,
-  loading: false,
-  isLoadingUser: false,
-  error: null,
+  user: { name: null, email: null },
+  token: null,
+  isLoggedIn: false,
+  isRefreshing: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: initialAuthState,
-  extraReducers: {
-    [signup.pending]: store => {
-      store.loading = true;
-      store.error = null;
-    },
-    [signup.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.user = payload.user;
-      store.token = payload.token;
-      store.isLogin = true;
-    },
-    [signup.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
-
-    [login.pending]: store => {
-      store.loading = true;
-      store.error = null;
-    },
-    [login.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.user = payload.user;
-      store.token = payload.token;
-      store.isLogin = true;
-    },
-    [login.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
-
-    [logout.pending]: store => {
-      store.loading = true;
-      store.error = null;
-    },
-    [logout.fulfilled]: store => {
-      store.loading = false;
-      store.user = {};
-      store.token = '';
-      store.isLogin = false;
-    },
-    [logout.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
-
-    [current.pending]: store => {
-      store.isLoadingUser = true;
-      store.error = null;
-    },
-    [current.fulfilled]: (store, { payload }) => {
-      store.isLoadingUser = false;
-      store.user = payload.user;
-      store.isLogin = true;
-    },
-    [current.rejected]: (store, { payload }) => {
-      store.isLoadingUser = false;
-      store.error = payload;
-    },
-  },
+  extraReducers: builder =>
+    builder
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(logIn.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(logOut.fulfilled, state => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      }),
 });
+
+//   extraReducers: {
+//     [register.fulfilled](state, action) {
+// state.user = action.payload.user;
+// state.token = action.payload.token;
+// state.isLoggedIn = true;
+//     },
+//     [logIn.fulfilled](state, action) {
+//       state.user = action.payload.user;
+//       state.token = action.payload.token;
+//       state.isLoggedIn = true;
+//     },
+//     [logOut.fulfilled](state) {
+//       state.user = { name: null, email: null };
+//       state.token = null;
+//       state.isLoggedIn = false;
+//     },
+//     [refreshUser.pending](state) {
+//       state.isRefreshing = true;
+//     },
+//     [refreshUser.fulfilled](state, action) {
+// state.user = action.payload;
+// state.isLoggedIn = true;
+// state.isRefreshing = false;
+//     },
+//     [refreshUser.rejected](state) {
+//       state.isRefreshing = false;
+//     },
+//   },
+// });
 
 export const authReducer = authSlice.reducer;

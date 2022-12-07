@@ -1,5 +1,10 @@
+import { useDispatch } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
+
 import { styled } from '@mui/material/styles';
-import { Button, Box, TextField, Typography } from '@mui/material';
+import { Button, Box, TextField, Typography, Link } from '@mui/material';
+
+import { register } from 'redux/auth/authOperations';
 
 const ValidationTextField = styled(TextField)({
   '& input:valid + fieldset': {
@@ -17,10 +22,25 @@ const ValidationTextField = styled(TextField)({
 });
 
 export default function RegisterForm() {
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    dispatch(
+      register({
+        name: form.elements.name.value,
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    );
+    form.reset();
+  };
+
   return (
     <Box
       component="form"
-      noValidate
+      // noValidate
       sx={{
         maxWidth: 'sm',
         display: 'grid',
@@ -29,6 +49,7 @@ export default function RegisterForm() {
         m: 'auto',
         pt: 12,
       }}
+      onSubmit={handleSubmit}
     >
       <Typography
         variant="h3"
@@ -38,33 +59,55 @@ export default function RegisterForm() {
       >
         SIGNUP
       </Typography>
+      <Typography
+        variant="subtitle2"
+        component="p"
+        sx={{ fontWeight: 500, color: 'text.primary' }}
+      >
+        Already have an account?
+        <Link
+          component={RouterLink}
+          to="/login"
+          underline="none"
+          sx={{ px: 1 }}
+        >
+          Login
+        </Link>
+      </Typography>
       <ValidationTextField
         label="Name"
+        type="text"
+        name="name"
         required
         variant="outlined"
         placeholder="Name"
         // !!!!!
-        id="validation-outlined-input"
+        id="validation-outlined-input-name"
       />
       <ValidationTextField
         label="Email"
+        name="email"
+        type="email"
         required
         variant="outlined"
         placeholder="Email"
         // !!!!!
-        id="validation-outlined-input"
+        id="validation-outlined-input-email"
       />
       <ValidationTextField
         label="Password"
+        name="password"
+        type="password"
         required
         variant="outlined"
         placeholder="Password"
         // !!!!!
-        id="validation-outlined-input"
+        id="validation-outlined-input-password"
       />
       <Button
         variant="contained"
         sx={{ maxWidth: '8rem', ml: 'auto', mr: 'auto' }}
+        type="submit"
       >
         SignUp
       </Button>

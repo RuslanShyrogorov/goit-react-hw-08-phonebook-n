@@ -3,10 +3,21 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Item from '@mui/material/Unstable_Grid2';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-export default function ContactItem() {
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/contacts/contactsOperations';
+import { selectIsLoading } from 'redux/contacts/contactsSelectors';
+// import Loader from 'components/Loader/Loader';
+
+export default function ContactItem({ name, number, id }) {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+
+  const handleDeleteContact = id => {
+    dispatch(deleteContact(id));
+  };
+
   const MyTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
@@ -27,6 +38,7 @@ export default function ContactItem() {
             cursor: 'pointer',
           },
         }}
+        key={id}
       >
         <Card variant="outlined" sx={{ minWidth: '320px' }}>
           <CardContent sx={{ position: 'relative' }}>
@@ -34,13 +46,13 @@ export default function ContactItem() {
               <IconButton
                 aria-label="delete"
                 sx={{
-                  // color: 'grey',
                   position: 'absolute',
                   right: '0px',
                   top: '0px',
                 }}
+                onClick={() => handleDeleteContact(id)}
+                disabled={isLoading}
               >
-                {/* <DeleteForeverIcon sx={{ color: 'red', ml: 'auto' }} /> */}
                 <DeleteOutlineIcon
                   color="error"
                   sx={{ width: '1rem', height: '1rem' }}
@@ -48,14 +60,14 @@ export default function ContactItem() {
               </IconButton>
             </MyTooltip>
             <Typography variant="h5" gutterBottom sx={{ fontSize: '1.2rem' }}>
-              Name :
+              Name: {name}
             </Typography>
             <Typography
               variant="h5"
               color="text.secondary"
               sx={{ fontSize: '1.2rem' }}
             >
-              Number:
+              Number: {number}
             </Typography>
           </CardContent>
         </Card>
