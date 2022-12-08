@@ -15,6 +15,7 @@ export default function ContactItem({ name, number, id }) {
   const isLoading = useSelector(selectIsLoading);
 
   const handleDeleteContact = id => {
+    console.log(id);
     dispatch(deleteContact(id));
   };
 
@@ -30,7 +31,7 @@ export default function ContactItem({ name, number, id }) {
   }));
 
   return (
-    <Grid>
+    <Grid key={id}>
       <Item
         sx={{
           '&:hover': {

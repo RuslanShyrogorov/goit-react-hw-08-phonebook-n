@@ -11,6 +11,7 @@ export function FormAddContact() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
+  console.log('FormAddContact:contacts', contacts);
 
   const handlerAddContact = event => {
     event.preventDefault();
@@ -21,6 +22,7 @@ export function FormAddContact() {
       name: form.name.value,
       number: form.number.value,
     };
+    console.log('newContact', newContact);
 
     contacts.find(contact =>
       contact.name === newContact.name || contact.number === newContact.number

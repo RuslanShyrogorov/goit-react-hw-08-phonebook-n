@@ -15,6 +15,8 @@ import { FormAddContact } from 'components/FormAddContact/FormAddContact';
 
 export default function ContactsList() {
   const items = useSelector(selectContacts);
+  console.log('items: ', items);
+
   const filter = useSelector(selectFilter);
   const isLoading = useSelector(selectIsLoading);
 
